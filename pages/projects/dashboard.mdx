@@ -1,0 +1,81 @@
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import NextImage from 'next/image'
+import NextLink from 'next/link'
+import { Flex, Text, Icon, Stack, LinkBox, LinkOverlay } from "@chakra-ui/react"
+import { FaGithub } from 'react-icons/fa'
+
+
+# Domain Checker
+
+<Flex pt={10} pb={10}>
+    <NextImage
+        src='/images/projects/content_ph.png'
+        width={980}
+        height={500}
+        priority
+    />
+</Flex>
+
+* [GitHub](https://github.com/stephenrutherford/domain-checker "GitHub Repo")
+
+* [Live Demo](https://fps-domain-checker.herokuapp.com/ "Live Demo page")
+
+## Overview
+A fraud investigation tool used to check for invalid and disposable email domains.
+
+## Features
+The app was built in Django using Python where it will perform a web-scrape from the website check-mail.org. The user can paste in the domains that they want to check, and the App will render a results table with additional columns that contain data of interest.
+
+* Type - If the domain is considered disposable or not.
+* Block - The domain is not disposable, but is high risk and should be blocked anyway.
+
+An export button was also included for larger querues. The user may want to download the entire results table as a CSV file for filtering and spreadsheet lookups.
+
+## Code
+<SyntaxHighlighter language='python' style={materialDark} showLineNumbers>
+{`# views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+import requests
+from bs4 import BeautifulSoup
+    
+# Create your views here.
+render_list = []
+    
+def scrape_domain(domain):
+    base = "https://check-mail.org/domain/"
+    url = base+domain
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
+    domain_data = []
+    for h5 in soup.find_all("h5"):
+        values = h5.text
+        domain_data.append(values)
+    return print_domain_details(domain, domain_data)
+    
+def print_domain_details(domain, domain_data):
+    domain_dict = {}
+    for i in domain_data:
+        if i == "Disposable: Yes":
+            domain_dict["domain"] = domain
+            domain_dict["disposable"] = "DISPOSABLE"
+        elif i == "Disposable: No":
+            domain_dict["domain"] = domain
+    render_list.append(domain_dict)
+    
+def index(request):
+    context = None
+    if request.method == "POST":
+        # Clear list on new load
+        render_list.clear()
+        domains = request.POST.get("textfield", None).split()
+            
+        for domain in domains:
+            scrape_domain(domain)
+            
+        # Render user submitted context on same page
+        context = {"render_list" : render_list}
+        return render(request, "pages/home.html", context)
+    return render(request, "pages/home.html", context)`}
+</SyntaxHighlighter>
