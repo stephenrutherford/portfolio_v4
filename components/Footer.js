@@ -10,55 +10,57 @@ function Footer() {
     return (
         <Stack direction='column' m={6} w='100%' spacing={6}>
             <Stack direction='row' justifyContent='center'>
+                <Stack>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>Home</Text>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>Projects</Text>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>Articles</Text>
+                        </Link>
+                    </NextLink>
+                </Stack>
 
-                <NextLink href='/' passHref>
-                    <Link
-                        style={{
-                            color: "inherit",
-                            textDecoration: "inherit",
-                            // letterSpacing: "0.1rem",
-                        }}>
-                        <Text fontSize='lg' color='gray.500'>Home</Text>
-                    </Link>
-                </NextLink>
+                <Spacer />
+
+                <Stack>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>Contact</Text>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>Resume</Text>
+                        </Link>
+                    </NextLink>
+                </Stack>
 
                 <Spacer />
 
-                <Link
-                    onClick={() => {
-                        toast({
-                            title: "Email copied to clipboard.",
-                            description: emailAddress.join(''),
-                            status: "success",
-                            duration: 9000,
-                            isClosable: true,
-                        })
-                            ; navigator.clipboard.writeText(emailAddress.join(''))
-                    }
-                    }
-                    style={{
-                        color: "inherit",
-                        textDecoration: "inherit",
-                        // letterSpacing: "0.1rem",
-                    }}
-                >
-                    <Text fontSize='lg' color='gray.500'>Email</Text>
-                </Link>
+                <Stack>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>GitHub</Text>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='/' passHref>
+                        <Link>
+                            <Text fontSize='lg' color='gray.500'>LinkedIn</Text>
+                        </Link>
+                    </NextLink>
+                </Stack>
 
-                <Spacer />
-                <NextLink href='/resume' passHref>
-                    <Link
-                        style={{
-                            color: "inherit",
-                            textDecoration: "inherit",
-                            // letterSpacing: "0.1rem",
-                        }}>
-                        <Text fontSize='lg' color='gray.500'>Resume</Text>
-                    </Link>
-                </NextLink>
             </Stack>
             <Stack direction='row' justifyContent='center'>
-                <Heading size='md'>Powered by Catpuccinos</Heading>
+                <Heading size='sm'>Powered by Catpuccinos</Heading>
                 <Icon as={FaCat} w={6} h={6} color='#00abe9' />
             </Stack>
         </Stack>

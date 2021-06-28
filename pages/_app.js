@@ -3,6 +3,7 @@ import { ChakraProvider, Text, Heading, UnorderedList, ListItem, Link } from "@c
 import customTheme from "../styles/theme"
 import Layout from "../components/Layout"
 import { MDXProvider } from '@mdx-js/react';
+import Promo from '../components/Promo'
 
 const components = {
   h1: (props) => (
@@ -16,13 +17,14 @@ const components = {
     </Heading>
   ),
   h3: (props) => (
-    <Heading fontSize="md">
+    <Heading fontSize="md" mt={5}>
       {props.children}
     </Heading>
   ),
   ul: (props) => <UnorderedList pl={8}>{props.children}</UnorderedList>,
   li: (props) => <ListItem>{props.children}</ListItem>,
-  p: (props) => <Text lineHeight='2rem'>{props.children}</Text>
+  p: (props) => <Text lineHeight='2rem'>{props.children}</Text>,
+  Promo
 };
 
 function MyApp({ Component, pageProps }) {

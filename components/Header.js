@@ -9,7 +9,8 @@ import {
     Link,
     HStack,
     Icon,
-    useToast
+    useToast,
+    Text
 } from "@chakra-ui/react"
 import { MoonIcon, SunIcon } from "@chakra-ui/icons"
 import { FaGithub, FaEnvelope, FaLinkedinIn } from 'react-icons/fa';
@@ -42,13 +43,16 @@ function Header() {
             </Flex>
             <Spacer />
             <HStack spacing='4'>
-                <Link href="/test">
+                <NextLink href={'/'} passHref>
+                    <Link>Projects</Link>
+                </NextLink>
+                <NextLink href={'/'} passHref>
+                    <Link>Articles</Link>
+                </NextLink>
+                <Link href="https://github.com/stephenrutherford" isExternal>
                     <Icon as={FaGithub} w={5} h={5} _hover={{ color: 'gray.500' }} />
                 </Link>
-                <Link href="https://chakra-ui.com" isExternal>
-                    <Icon as={FaGithub} w={5} h={5} _hover={{ color: 'gray.500' }} />
-                </Link>
-                <Link href="https://chakra-ui.com" isExternal>
+                <Link href="https://www.linkedin.com/in/stephen-rutherford-b420951a3/" isExternal>
                     <Icon as={FaLinkedinIn} w={5} h={5} _hover={{ color: 'gray.500' }} />
                 </Link>
                 <Link

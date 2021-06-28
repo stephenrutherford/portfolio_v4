@@ -22,15 +22,19 @@ export default function Home() {
         <Stack direction='column' spacing={8}>
           <Card
             image='/images/projects/dc_thumb.jpg'
+            source='/images/projects/universe.mp4'
             heading='Domain Checker'
             description='A fraud investigation tool used to check for invalid and disposable email domains.'
             link='/projects/domainchecker'
+            badge1='PYTHON'
           />
           <Card
             image='/images/projects/fd_thumb.jpg'
+            source='/images/projects/universe.mp4'
             heading='Fraud Dashboard'
             description='A fraud metrics and sales dashboard created with Next.js. Designed as a data visualization tool using charts and tables.'
             link='/projects/dashboard'
+            badge1='JSX'
           />
         </Stack>
       </Stack>

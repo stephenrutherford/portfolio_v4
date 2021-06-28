@@ -48,7 +48,7 @@ function Hero() {
                     {/* Illustration */}
                     <Flex maxH='350px'>
                         <NextImage
-                            src='/images/illustration.svg'
+                            src='/images/hero.svg'
                             width={500}
                             height={500}
                             priority
