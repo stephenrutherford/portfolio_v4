@@ -3,6 +3,9 @@ import { Flex, Stack, Heading, Divider } from "@chakra-ui/react"
 import Hero from '../components/Hero'
 import Card from '../components/Card'
 import Article from '../components/Article'
+import { blogposts } from '../lib/articleData'
+import { projects } from '../lib/projectData'
+
 
 export default function Home() {
   return (
@@ -16,13 +19,13 @@ export default function Home() {
       <Hero />
 
       {/* Projects */}
-      <Stack direction='column' spacing={4} pt={10}>
+      <Stack direction='column' spacing={4} mt={10}>
         <Heading>Projects</Heading>
         <Divider />
-        <Stack direction='column' spacing={8}>
+        {/* <Stack direction='column' spacing={8}>
           <Card
             image='/images/projects/dc_thumb.jpg'
-            source='/images/projects/universe.mp4'
+            source='/images/projects/domainchecker.mp4'
             heading='Domain Checker'
             description='A fraud investigation tool used to check for invalid and disposable email domains.'
             link='/projects/domainchecker'
@@ -30,21 +33,32 @@ export default function Home() {
           />
           <Card
             image='/images/projects/fd_thumb.jpg'
-            source='/images/projects/universe.mp4'
+            source='/images/projects/domainchecker.mp4'
             heading='Fraud Dashboard'
             description='A fraud metrics and sales dashboard created with Next.js. Designed as a data visualization tool using charts and tables.'
             link='/projects/dashboard'
             badge1='JSX'
           />
-        </Stack>
+        </Stack> */}
+        {projects.slice(0, 2).map((item) => (
+          <Card
+            image={item.image}
+            source={item.source}
+            heading={item.title}
+            description={item.description}
+            link={item.src}
+            badge1={item.badge1}
+          />
+        )
+        )}
       </Stack>
 
       {/* Articles */}
-      <Stack direction='column' spacing={4} pt={10}>
+      <Stack direction='column' spacing={4} mt={10}>
         <Heading>Articles</Heading>
         <Divider />
         <Stack direction='column' spacing={8}>
-          <Article
+          {/* <Article
             heading='Fraud Dashboard'
             description='A fraud metrics and sales dashboard created with Next.js. Designed as a data visualization tool using charts and tables.'
             link='/test'
@@ -53,7 +67,15 @@ export default function Home() {
             heading='Fraud Dashboard'
             description='A fraud metrics and sales dashboard created with Next.js. Designed as a data visualization tool using charts and tables.'
             link='/test'
-          />
+          /> */}
+          {blogposts.slice(0, 2).map((item) => (
+            <Article
+              heading={item.title}
+              description={item.description}
+              link={item.src}
+            />
+          )
+          )}
         </Stack>
       </Stack>
 

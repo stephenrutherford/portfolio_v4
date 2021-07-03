@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ChakraProvider, Text, Heading, UnorderedList, ListItem, Link } from "@chakra-ui/react"
+import { ChakraProvider, Text, Heading, UnorderedList, ListItem, Link, Divider } from "@chakra-ui/react"
 import customTheme from "../styles/theme"
 import Layout from "../components/Layout"
 import { MDXProvider } from '@mdx-js/react';
@@ -24,6 +24,7 @@ const components = {
   ul: (props) => <UnorderedList pl={8}>{props.children}</UnorderedList>,
   li: (props) => <ListItem>{props.children}</ListItem>,
   p: (props) => <Text lineHeight='2rem'>{props.children}</Text>,
+  hr: (props) => <Divider mt={5}>{props.children}</Divider>,
   Promo
 };
 

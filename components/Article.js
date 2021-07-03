@@ -20,7 +20,7 @@ function Article({ link, heading, description }) {
     return (
         <LinkBox as="article">
             <Stack w='100%' direction='column' spacing={6}>
-                <Heading size='lg' _hover={{ color: 'gray.500' }} >
+                <Heading size='md' _hover={{ color: 'gray.500' }} >
                     <NextLink href={link} passHref>
                         <LinkOverlay>{heading}</LinkOverlay>
                     </NextLink>

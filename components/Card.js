@@ -32,7 +32,7 @@ function Card({ link, source, heading, description, badge1, badge2, badge3 }) {
 
             <Stack w='100%' direction={variant} spacing={6}>
 
-                <Flex rounded='2xl' overflow='hidden' maxW='500px' w='100%'>
+                <Flex rounded='2xl' overflow='hidden' maxW='500px' w='100%' boxShadow="lg">
                     {/* <NextImage
                         src={source}
                         width={350}

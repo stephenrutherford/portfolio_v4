@@ -16,12 +16,12 @@ function Footer() {
                             <Text fontSize='lg' color='gray.500'>Home</Text>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/projects' passHref>
                         <Link>
                             <Text fontSize='lg' color='gray.500'>Projects</Text>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/articles' passHref>
                         <Link>
                             <Text fontSize='lg' color='gray.500'>Articles</Text>
                         </Link>
@@ -31,12 +31,12 @@ function Footer() {
                 <Spacer />
 
                 <Stack>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/contact' passHref>
                         <Link>
                             <Text fontSize='lg' color='gray.500'>Contact</Text>
                         </Link>
                     </NextLink>
-                    <NextLink href='/' passHref>
+                    <NextLink href='/resume' passHref>
                         <Link>
                             <Text fontSize='lg' color='gray.500'>Resume</Text>
                         </Link>
@@ -46,16 +46,12 @@ function Footer() {
                 <Spacer />
 
                 <Stack>
-                    <NextLink href='/' passHref>
-                        <Link>
-                            <Text fontSize='lg' color='gray.500'>GitHub</Text>
-                        </Link>
-                    </NextLink>
-                    <NextLink href='/' passHref>
-                        <Link>
-                            <Text fontSize='lg' color='gray.500'>LinkedIn</Text>
-                        </Link>
-                    </NextLink>
+                    <Link href="https://github.com/stephenrutherford" color='gray.500' fontSize='lg' isExternal>
+                        GitHub
+                    </Link>
+                    <Link href="https://www.linkedin.com/in/stephen-rutherford-b420951a3/" color='gray.500' fontSize='lg' isExternal>
+                        LinkedIn
+                    </Link>
                 </Stack>
 
             </Stack>

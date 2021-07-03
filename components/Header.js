@@ -43,11 +43,11 @@ function Header() {
             </Flex>
             <Spacer />
             <HStack spacing='4'>
-                <NextLink href={'/'} passHref>
-                    <Link>Projects</Link>
+                <NextLink href={'/projects'} passHref>
+                    <Link _hover={{ color: 'gray.500', textDecoration: 'underline' }}>Projects</Link>
                 </NextLink>
-                <NextLink href={'/'} passHref>
-                    <Link>Articles</Link>
+                <NextLink href={'/articles'} passHref>
+                    <Link _hover={{ color: 'gray.500', textDecoration: 'underline' }}>Articles</Link>
                 </NextLink>
                 <Link href="https://github.com/stephenrutherford" isExternal>
                     <Icon as={FaGithub} w={5} h={5} _hover={{ color: 'gray.500' }} />
@@ -55,21 +55,11 @@ function Header() {
                 <Link href="https://www.linkedin.com/in/stephen-rutherford-b420951a3/" isExternal>
                     <Icon as={FaLinkedinIn} w={5} h={5} _hover={{ color: 'gray.500' }} />
                 </Link>
-                <Link
-                    onClick={() => {
-                        toast({
-                            title: "Email copied to clipboard.",
-                            description: emailAddress.join(''),
-                            status: "success",
-                            duration: 9000,
-                            isClosable: true,
-                        })
-                            ; navigator.clipboard.writeText(emailAddress.join(''))
-                    }
-                    }
-                >
-                    <Icon as={FaEnvelope} w={5} h={5} _hover={{ color: 'gray.500' }} />
-                </Link>
+                <NextLink href={'/contact'} passHref>
+                    <Link>
+                        <Icon as={FaEnvelope} w={5} h={5} _hover={{ color: 'gray.500' }} />
+                    </Link>
+                </NextLink>
                 <Tooltip hasArrow label='Night/Day Mode!' /*defaultIsOpen*/>
                     <IconButton
                         aria-label='Color Mode Button'
