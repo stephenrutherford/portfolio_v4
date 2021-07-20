@@ -1,12 +1,8 @@
-import { Heading, Icon, Spacer, Stack, Text, Link, useToast } from "@chakra-ui/react"
+import { Heading, Icon, Spacer, Stack, Text, Link } from "@chakra-ui/react"
 import { FaCat } from 'react-icons/fa';
 import NextLink from 'next/link'
 
 function Footer() {
-
-    const toast = useToast()
-    const emailAddress = ['stephen', '@', 'rutherford.dev']
-
     return (
         <Stack direction='column' m={6} w='100%' spacing={6}>
             <Stack direction='row' justifyContent='center'>

@@ -1,27 +1,35 @@
+import { NextSeo } from 'next-seo'
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
 import NextImage from 'next/image'
 import NextLink from 'next/link'
-import { Flex, Text, Icon, Stack, LinkBox, LinkOverlay,  Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-    Table,
-	Thead,
-	Tbody,
-	Tfoot,
-	Tr,
-	Th,
-	Td,
-	TableCaption,
-    Link } from "@chakra-ui/react"
+import { Flex, Text, Icon, Stack, LinkBox, LinkOverlay, Alert, AlertIcon, AlertTitle, AlertDescription, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, Link } from "@chakra-ui/react"
 import { FaGithub } from 'react-icons/fa'
 
+<NextSeo {...
+    {
+        title: 'Fraud Dashboard - Stephen Rutherford',
+        description: 'A fraud metrics and sales dashboard created with Next.js.',
+        openGraph: {
+            title: 'Fraud Dashboard - Stephen Rutherford',
+            description: 'A fraud metrics and sales dashboard created with Next.js.',
+            url: 'https://rutherford.dev/projects/dashboard',
+            type: 'article',
+            article: {
+            publishedTime: '2021-07-19T16:00:00Z',
+            modifiedTime: '2021-07-19T16:00:00Z',
+            section: 'Coding',
+            tags: ['React', 'Next.js', 'JSX', 'JavaScript', 'Chakra-UI', 'Tailwind', 'Dashboard', 'Fraud' , 'Admin', 'Metrics'],
+            },
+        },
+    }
+}
+/>
 
 # Fraud Dashboard
 
 <Promo
-    source='/images/projects/domainchecker.mp4'
+    source='/images/projects/dashboard.mp4'
     githubSrc='https://github.com/stephenrutherford/fraud-dashboard'
     demoSrc='https://fraud-dashboard.vercel.app/'
  />

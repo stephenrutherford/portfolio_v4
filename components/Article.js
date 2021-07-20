@@ -1,19 +1,10 @@
 import {
     Heading,
     Text,
-    Flex,
-    Spacer,
     Stack,
-    Image,
-    Link,
-    Badge,
-    useBreakpointValue,
     LinkBox,
     LinkOverlay,
 } from "@chakra-ui/react"
-import { transform } from "framer-motion"
-import styles from "../styles/Home.module.css"
-import NextImage from 'next/image'
 import NextLink from 'next/link'
 
 function Article({ link, heading, description }) {

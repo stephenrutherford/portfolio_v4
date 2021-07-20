@@ -30,7 +30,6 @@ function Layout({ children }) {
                 flexDirection='column'
                 maxW={maxWidthVariant}
                 w='100%'
-            // border='1px solid blue'
             >
                 <Header />
                 {children}
@@ -42,10 +41,7 @@ function Layout({ children }) {
                 w='100%'
             >
                 <Divider />
-                <Footer
-
-
-                />
+                <Footer />
             </Flex>
         </Flex >
     )

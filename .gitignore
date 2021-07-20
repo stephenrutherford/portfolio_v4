@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# placeholders
+/public/images/projects/universe.mp4

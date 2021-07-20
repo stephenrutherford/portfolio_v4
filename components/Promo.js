@@ -1,31 +1,12 @@
-import NextLink from 'next/link'
-import NextImage from 'next/image'
-import {
-    Heading,
-    Flex,
-    Spacer,
-    useColorMode,
-    IconButton,
-    Tooltip,
-    Button,
-    Stack,
-    Icon,
-    Link
-} from "@chakra-ui/react"
+import { Flex, Button, Stack, Link } from "@chakra-ui/react"
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 
 function Promo({ source, githubSrc, demoSrc }) {
     return (
         <Flex flexDirection='column' mt={10}>
-            {/* <NextImage
-                src='/images/projects/content_ph.png'
-                width={980}
-                height={551}
-                priority
-            /> */}
             <Flex>
-                <video width="980" height="551" autoPlay="autoplay" muted preload='true' loop>
+                <video width="980" autoPlay="autoplay" muted preload='true' loop>
                     <source src={source} type="video/mp4" />
                 </video>
             </Flex>

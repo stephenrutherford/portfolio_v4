@@ -1,17 +1,8 @@
 import { useState } from 'react'
 import {
-    Flex, Button, Stack, Spacer, Heading, Text, useBreakpointValue, useColorMode, FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText, Input, Textarea,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
+    Flex, Button, Stack, Spacer, Heading, Text, useBreakpointValue, useColorMode, FormControl, FormLabel, Input, Textarea, Alert, AlertIcon, AlertTitle, AlertDescription
 } from "@chakra-ui/react"
 import NextImage from 'next/image'
-import NextLink from 'next/link'
-import PillPity from 'pill-pity';
 import { FaFile } from 'react-icons/fa';
 
 function Contact() {
@@ -61,7 +52,6 @@ function Contact() {
 
     return (
         <Flex mt={10} flexDirection='column'>
-            {/* <Stack direction='column' w='100%' spacing={4}> */}
             <Heading color='#00abe9'>Contact Form</Heading>
             <Stack direction={variant} spacing={10} alignItems='top' mt={10}>
                 {/* Description */}
@@ -71,7 +61,6 @@ function Contact() {
                             <FormControl id="name" isRequired>
                                 <FormLabel>Name:</FormLabel>
                                 <Input type="text" variant="filled" value={name} onChange={(e) => { setName(e.target.value) }} />
-                                <FormErrorMessage>Name is Required</FormErrorMessage>
                             </FormControl>
                             <FormControl id="email" isRequired>
                                 <FormLabel>Email address:</FormLabel>
@@ -88,6 +77,7 @@ function Contact() {
                             </FormControl>
                             <Button leftIcon={<FaFile />} type="submit" colorScheme="blue" variant="solid" pt={6} pb={6} pl={4} pr={4} iconSpacing={4} maxW='200px'
                                 isLoading={submitted}
+                                loadingText="Submitting"
                             >
                                 SUBMIT
                             </Button>
@@ -123,9 +113,7 @@ function Contact() {
                     />
                 </Flex>
             </Stack >
-            {/* </Stack > */}
 
-            {/* </Flex > */}
         </Flex >
     )
 }

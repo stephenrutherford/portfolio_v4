@@ -1,0 +1,149 @@
+import { NextSeo } from 'next-seo'
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import { Alert, AlertIcon } from "@chakra-ui/react"
+
+<NextSeo {...
+    {
+        title: 'Integrating Chakra-UI components, and Syntax Highlighting with Next.js MDX - Stephen Rutherford',
+        description: 'How to integrate MDX and JSX elements into a Next.js application.',
+        openGraph: {
+            title: 'Integrating Chakra-UI components, and Syntax Highlighting with Next.js MDX - Stephen Rutherford',
+            description: 'How to integrate MDX and JSX elements into a Next.js application.',
+            url: 'https://rutherford.dev/articles/next-mdx',
+            type: 'article',
+            article: {
+            publishedTime: '2021-07-19T16:00:00Z',
+            modifiedTime: '2021-07-19T16:00:00Z',
+            section: 'Coding',
+            tags: ['React', 'Next.js', 'JSX', 'JavaScript', 'Chakra-UI', 'MDX', 'Markdown' , 'Synatax Highlighting', 'Code Highlight', 'React-Syntax-Highlighter'],
+            },
+        },
+    }
+}
+/>
+
+# Integrating Chakra-UI components, and Syntax Highlighting with Next.js MDX
+
+## Description
+
+MDX is great utility to combine JSX elements with Markdown documents. Here is a quick introduction on how to integrate both of these features into a Next.js application along with Syntax Highlighting. 
+
+## Getting Started
+The list of prerequisities that you will need to have installed: 
+* [Chakra-UI](https://chakra-ui.com/docs/getting-started)
+* [Next MDX](https://mdxjs.com/getting-started/next)
+* [React-Syntax-Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)
+
+<br />
+
+<Alert status="info">
+    <AlertIcon />
+    <span>Tip: Install a <a href='https://marketplace.visualstudio.com/items?itemName=silvenon.mdx'>MDX extension</a> in VSCode for better readability. </span>
+</Alert>
+
+## next.config.js Configuration
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`// ./next.config.js
+const withMDX = require('@next/mdx')({
+    extension: /\\.mdx?$/
+})
+module.exports = withMDX({
+    pageExtensions: ['js', 'jsx', 'md', 'mdx']
+})`}
+</SyntaxHighlighter>
+
+In our next.config.js file we need to set it up like the above so that Next.js will treat the .mdx files as regular pages. Additional file formats like TypeScript can also be added to the `.pageExtensions` array.
+
+## _app.js Configuration
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`// ./_app.js
+import { ChakraProvider, Text, Heading, UnorderedList, ListItem, Link, ... } from "@chakra-ui/react"
+import { MDXProvider } from '@mdx-js/react';
+import LandingPage from '../components/LandingPage'
+    
+const components = {
+    h1: (props) => (
+        <Heading fontSize="3xl" mt={10} color='#00abe9'>
+            {props.children}
+        </Heading>
+    ),
+    h2: (props) => (
+        <Heading fontSize="xl" mt={10}>
+            {props.children}
+        </Heading>
+    ),
+    h3: (props) => (
+        <Heading fontSize="md" mt={5}>
+            {props.children}
+        </Heading>
+    ),
+    ul: (props) => <UnorderedList pl={8}>{props.children}</UnorderedList>,
+    ol: (props) => <OrderedList pl={8}>{props.children}</OrderedList>,
+    li: (props) => <ListItem>{props.children}</ListItem>,
+    p: (props) => <Text lineHeight='2rem'>{props.children}</Text>,
+    hr: (props) => <Divider mt={5}>{props.children}</Divider>,
+    inlineCode: (props) => <Code fontWeight='bold'>{props.children}</Code>,
+    a: (props) => <Link fontWeight='bold' color='#00abe9' _hover={{ textDecoration: 'underline' }} href={props.href} isExternal>{props.children}</Link >,
+    LandingPage
+};
+    
+function MyApp({ Component, pageProps }) {
+    return (
+        <ChakraProvider theme={customTheme}>
+            <MDXProvider components={components}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </MDXProvider>
+        </ChakraProvider>
+    )
+}
+    
+export default MyApp`}
+</SyntaxHighlighter>
+
+In our _app.js file, we firstly import any required UI components from both Chakra-UI and any custom Components (LandingPage, Hero, Forms, etc..) that will be used in a MDX page. The custom Components will also need to be passed in as a prop to the MDXProvider otherwise we will just get an error if we only attempted to import them into an individual .mdx page.
+
+<br />
+
+Next up, we create a new object that will store our various Components that will eventually be passed into our MDX Provider that wraps around the Next.js application. We pass the components as props into the HTML elements so that we can write our documents in Markdown yet still gain all the benefits of global styles. 
+
+<br />
+
+The final step here is to wrap the Next.js application with our two providers - Chakra and MDX. Both of these providers can take a custom prop here which can be a custom theme for Chakra (optional) and our previously written `components` object into MDX.
+
+## Syntax Highlighting
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`//./pages/blog/random_post.mdx
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import LandingPage from '../../components/LandingPage'
+    
+# H1
+## H2
+    
+<LandingPage />
+    
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{\`export async function getStaticProps(context) {
+    return {
+        props: {}, // will be passed to the page component as props
+    }
+}\`}
+</SyntaxHighlighter>`}
+</SyntaxHighlighter>
+
+In any of our .mdx pages, we can import our Syntax highlighter along with any of the preferred styles that we intend to use. Make sure to import any custom Components as well that were also added to the MDXProvider.
+
+<br />
+
+In the example above you can see that we can write our documents with regular Mardown syntax to get styled headings. We can also add our custom Components underneath like we would typically do for any JSX page. 
+
+<br />
+
+With React-Syntax-Highlighter, we pass in our code language and styles as props. The important part here is to add the code via String Interpolation so that we will not get any errors with certain languages. However, we can use a `\` in the code block to escape any unwanted characters that could be conflicting with Next.js. 
+

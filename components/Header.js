@@ -1,16 +1,6 @@
 import NextLink from 'next/link'
 import {
-    Heading,
-    Flex,
-    Spacer,
-    useColorMode,
-    IconButton,
-    Tooltip,
-    Link,
-    HStack,
-    Icon,
-    useToast,
-    Text
+    Heading, Flex, Spacer, useColorMode, IconButton, Tooltip, Link, HStack, Icon, useBreakpointValue
 } from "@chakra-ui/react"
 import { MoonIcon, SunIcon } from "@chakra-ui/icons"
 import { FaGithub, FaEnvelope, FaLinkedinIn } from 'react-icons/fa';
@@ -19,13 +9,18 @@ import { useRouter } from 'next/router';
 function Header() {
     const { colorMode, toggleColorMode } = useColorMode()
 
-    const toast = useToast()
-    const emailAddress = ['stephen', '@', 'rutherford.dev']
+    const variant = useBreakpointValue({
+        base: "column",
+        xl: "row",
+        lg: "row",
+        md: "row",
+        sm: "column",
+    })
 
     const router = useRouter();
 
     return (
-        <Flex p={0} alignItems='center'>
+        <Flex p={0} alignItems='center' flexDirection={variant}>
             <Flex display={router.pathname === '/' ? 'none' : 'inherit'}>
                 <Heading
                     fontSize='xl'
@@ -36,7 +31,6 @@ function Header() {
                             style={{
                                 color: "inherit",
                                 textDecoration: "inherit",
-                                // letterSpacing: "0.1rem",
                             }}>Stephen Rutherford</Link>
                     </NextLink>
                 </Heading>
@@ -60,7 +54,7 @@ function Header() {
                         <Icon as={FaEnvelope} w={5} h={5} _hover={{ color: 'gray.500' }} />
                     </Link>
                 </NextLink>
-                <Tooltip hasArrow label='Night/Day Mode!' /*defaultIsOpen*/>
+                <Tooltip hasArrow label='Night/Day Mode!'>
                     <IconButton
                         aria-label='Color Mode Button'
                         icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}

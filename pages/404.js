@@ -1,6 +1,5 @@
-import { Heading, Icon, Spacer, Stack, Text, Link, useToast } from "@chakra-ui/react"
+import { Heading, Stack } from "@chakra-ui/react"
 import NextImage from 'next/image'
-import NextLink from 'next/link'
 
 function Custom404() {
     return (

@@ -1,0 +1,279 @@
+import { NextSeo } from 'next-seo'
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import { Flex, Button, Stack, Spacer, Heading, Text, useBreakpointValue, useColorMode, FormControl, FormLabel, FormErrorMessage, FormHelperText, Input, Textarea, Alert, AlertIcon, AlertTitle, AlertDescription,
+} from "@chakra-ui/react"
+import { FaFile } from 'react-icons/fa';
+
+
+<NextSeo {...
+    {
+        title: 'Sending Emails in Next.js with SendGrid - Stephen Rutherford',
+        description: 'A quick guide on integrating Next.js and SendGrid to send emails.',
+        openGraph: {
+            title: 'Sending Emails in Next.js with SendGrid - Stephen Rutherford',
+            description: 'A quick guide on integrating Next.js and SendGrid to send emails.',
+            url: 'https://rutherford.dev/articles/sendgrid',
+            type: 'article',
+            article: {
+            publishedTime: '2021-07-19T16:00:00Z',
+            modifiedTime: '2021-07-19T16:00:00Z',
+            section: 'Coding',
+            tags: ['React', 'Next.js', 'JSX', 'JavaScript', 'Emails', 'SendGrid', 'Node.js' , 'Contact', 'Form'],
+            },
+        },
+    }
+}
+/>
+
+# Sending Emails in Next.js with SendGrid
+
+## Description
+
+A quick guide on integrating Next.js and SendGrid to send emails. I will use Chakra-UI to create the contact form along with React Hooks to send the submitted form data through our Next API routes.
+
+## Getting Started
+
+Create a [SendGrid account](https://signup.sendgrid.com/) and generate an [API key](https://app.sendgrid.com/guide/integrate/langs/nodejs).
+
+## Sender Authentication
+
+Before sending an email, you’ll need to create a sender identity. In this example I will be authenticating via a domain but you can also choose 'Create a Single Sender' instead.
+
+1. Select which Domain Name Server (DNS) host that you are using.
+2. Enter your website domain.
+3. Add the SendGrid records to your DNS host settings.
+4. Click 'Verify' on SendGrid setup page.
+
+## Environment Variables
+
+To keep our private API keys secure, create an `.env.local` file at the root of your project. Add the variable `SENDGRID_API_KEY` along with your SendGrid API key, which should look like this: 
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`SENDGRID_API_KEY="SG.abc123..."`}
+</SyntaxHighlighter>
+
+## Next.js API Route
+
+We will create our SendGrid API endpoint as `mail.js` in our  `./api` project path, which will return a json response with a status code of '200'.
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`//./api/mail.js
+import sendgrid from '@sendgrid/mail';
+    
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+    
+export default async (req, res) => {
+    
+    const body = JSON.parse(req.body);
+    
+    const message = \`
+        Name: \${body.name}\\r\\n
+        Email: \${body.email}\\r\\n
+        Message: \${body.message}
+    \`\;
+    
+    const data = {
+        to: 'your_email@email.com',
+        from: 'your_email@email.com',
+        subject: '[Website Name] Contact Form - New Message',
+        text: message,
+        html: message.replace(/\\r\\n/g, '<br>')
+    };
+    
+    sendgrid.send(data);
+    
+    return res.status(200).json({ status: 'Ok' });
+};`}
+</SyntaxHighlighter>
+
+Firstly, we can reference and pass in our previously created SendGrid API key from our environment variables as `process.env.SENDGRID_API_KEY`.
+
+<br />
+
+The structure of my contact form will use a few simple fields, so we crate a new object called `message` which will take in a Name, Email, and Message. We append `\r\n` here to return a new line after each request in our object.
+
+<br />
+
+Finally, we create a new object called `data` which will be passed into the `sendgrid.send` function. If you opted for domain verification, you can enter whatever email you'd like for the 'to' and 'from' fields here - As an example, I would choose to do something like 'to: hello[at]domain.com' and 'from: contact_form[at]domain.com'. For single email verification, use your verified email in these fields instead. 
+
+## React Hooks
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`//./Components/Contact.js
+import { useState } from 'react'
+    
+function Contact() {    
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [message, setMessage] = useState('')
+    const [submitted, setSubmitted] = useState(false)
+    const [status, setStatus] = useState('')
+    
+    async function handleOnSubmit(e) {
+        e.preventDefault();
+        const formData = {
+            name,
+            email,
+            message
+        }
+        
+        setSubmitted(true)
+        
+        fetch('/api/mail', {
+            method: 'post',
+            body: JSON.stringify(formData)
+        }).then((res) => {
+            if (res.status === 200) {
+                setSubmitted(false)
+                setName('')
+                setEmail('')
+                setMessage('')
+                setStatus('success')
+            }
+            else {
+                setStatus('error')
+            }
+        }) 
+    }
+    
+    return (
+        ...
+    )
+}
+    
+export default Contact`}
+</SyntaxHighlighter>
+
+As mentioned before, we will be using [React Hooks](https://reactjs.org/docs/hooks-intro.html) to handle our form input values and pass these through our Next API routes.
+
+<br />
+
+We create a function called `handleOnSubmit` which will be initiated when the form is submitted. To prevent a page refresh, we will first call `e.preventDefault()` and afterwards we create a new object `formData` to store our combined input data. At this stage in the request, we can also update our `status` Hook to 'TRUE' before the response is received. 
+
+<br />
+
+To finish up our custom fuction, we send a fetch request to our `mail.js` API, passing in this `fromData` object via a `JSON.stringify`. If the response has a status of '200' then we update our custom Hooks - primarily setting the string variables to an empty value to reset the form inputs. The `submitted` variable goes back to 'FALSE' and the `status` variable becomes a 'success'. Should we get a different status response from our API, we set the `status` variable to 'error' but this will be covered in more detail further down. 
+
+## Building the Contact Form
+
+<form>
+    <Flex w='100%' justifyContent='center' mt={5} mb={5}>
+        <Stack spacing={2} maxW='500px' w='100%' p={4} rounded='2xl' border="2px" borderColor="gray.500" borderStyle='dashed'>
+            <FormControl id="name" isRequired>
+                <FormLabel>Name:</FormLabel>
+                <Input type="text" variant="filled" />
+            </FormControl>
+            <FormControl id="email" isRequired>
+                <FormLabel>Email address:</FormLabel>
+                <Input type="email" variant="filled" />
+            </FormControl>
+            <FormControl id="text" isRequired>
+                <FormLabel>Message:</FormLabel>
+                <Textarea
+                    placeholder="Here is a sample placeholder"
+                    variant="filled"
+                />
+            </FormControl>
+            <Button leftIcon={<FaFile />} type="submit" colorScheme="blue" variant="solid" pt={6} pb={6} pl={4} pr={4} iconSpacing={4} maxW='200px'>
+                SUBMIT
+            </Button>
+            <Flex justifyContent='center'>
+                <Text as="em">What our Contact Form will look like.</Text>
+            </Flex>
+        </Stack>
+    </Flex>
+</form>
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`//./Components/Contact.js
+<form action='submit' method='POST' onSubmit={handleOnSubmit}>
+    <Stack>
+        <FormControl id="name" isRequired>
+            <FormLabel>Name:</FormLabel>
+            <Input type="text" value={name} onChange={(e) => { setName(e.target.value) }} />
+        </FormControl>
+        <FormControl id="email" isRequired>
+            <FormLabel>Email address:</FormLabel>
+            <Input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
+        </FormControl>
+        <FormControl id="text" isRequired>
+            <FormLabel>Message:</FormLabel>
+            <Textarea
+                placeholder="Here is a sample placeholder"
+                value={message}
+                onChange={(e) => { setMessage(e.target.value) }}
+            />
+        </FormControl>
+        <Button type="submit"
+            isLoading={submitted}
+            loadingText="Submitting"
+        >
+            SUBMIT
+        </Button>
+    </Stack>
+</form>`}
+</SyntaxHighlighter>
+
+For our form we first need to set this to 'POST' and set our `onSubmit` type to the function we created - `handleOnSubmit`.
+
+<br />
+
+We use the `onChange` event for each input to firstly set the state variables when a user types into them. This then allows us to reference the state variables and pass them into our forms `value` prop.
+
+## Form Validation & Feedback
+
+<Flex w='100%' justifyContent='center' mt={5} mb={5}>
+    <Stack spacing={2} maxW='500px' w='100%' p={4} rounded='2xl' border="2px" borderColor="gray.500" borderStyle='dashed'>
+        <Button isLoading={true} loadingText="Submitting" colorScheme="blue" variant="solid" maxW='200px'>
+            SUBMIT
+        </Button>
+        <Alert status="success">
+            <AlertIcon />
+            <AlertTitle mr={2}>Success!</AlertTitle>
+            <AlertDescription>Your email has been sent.</AlertDescription>
+        </Alert>
+        <Alert status="error">
+            <AlertIcon />
+            <AlertTitle mr={2}>Error!</AlertTitle>
+            <AlertDescription>Your email was unable to be sent.</AlertDescription>
+        </Alert>
+        <Flex justifyContent='center'>
+            <Text as="em">The button and status alerts that we will use.</Text>
+        </Flex>
+    </Stack>
+</Flex>
+
+Chakra-UI will handle the form validation for us using the `isRequired` prop that we passed in. You can try this out in the example form above by submitting the form with empty fields. 
+
+<SyntaxHighlighter language='jsx' style={materialDark}>
+{`//./Components/Contact.js
+<Button type="submit"
+    isLoading={submitted}
+    loadingText="Submitting"
+>
+    SUBMIT
+</Button>
+    
+<Flex>
+    {status === "success" ?
+        <Alert status="success">
+            <AlertIcon />
+            <AlertTitle mr={2}>Success!</AlertTitle>
+            <AlertDescription>Your email has been sent.</AlertDescription>
+        </Alert>
+        : status === "error" ?
+            <Alert status="error">
+                <AlertIcon />
+                <AlertTitle mr={2}>Error!</AlertTitle>
+                <AlertDescription>Your email was unable to be sent.</AlertDescription>
+            </Alert>
+            : null
+    }
+</Flex>`}
+</SyntaxHighlighter>
+
+To prevent multiple form submissions, we will update our React Hook `setSubmitted(false)` to true when the Next API route is first initiated. This is also incorporated as a value into the Chakra-UI button prop `isLoading` to disable any further clicks and provides meaningful feedback to our user with a new spin icon and updated text.
+
+<br />
+
+Finally, we render an alert based on our `setStatus` Hook once our Next API has returned a 'success' on status(200) or 'error' should we receive a different status response. I choose to render `null` wihin the ternary condition when the contact form is initially rendered so that the status alerts are hidden.

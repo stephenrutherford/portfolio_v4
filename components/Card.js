@@ -4,19 +4,12 @@ import {
     Flex,
     Spacer,
     Stack,
-    Image,
-    Link,
     Badge,
     useBreakpointValue,
     LinkBox,
     LinkOverlay,
 } from "@chakra-ui/react"
-import { transform } from "framer-motion"
-import styles from "../styles/Home.module.css"
-import NextImage from 'next/image'
 import NextLink from 'next/link'
-
-
 
 function Card({ link, source, heading, description, badge1, badge2, badge3 }) {
     const variant = useBreakpointValue({
@@ -33,14 +26,7 @@ function Card({ link, source, heading, description, badge1, badge2, badge3 }) {
             <Stack w='100%' direction={variant} spacing={6}>
 
                 <Flex rounded='2xl' overflow='hidden' maxW='500px' w='100%' boxShadow="lg">
-                    {/* <NextImage
-                        src={source}
-                        width={350}
-                        height={240}
-                        objectFit='cover'
-                        priority
-                    /> */}
-                    <video width="500" height="281" autoPlay='autoplay' muted preload='true' loop>
+                    <video width="500" autoPlay='autoplay' muted preload='true' loop>
                         <source src={source} type="video/mp4" />
                     </video>
                 </Flex>
@@ -68,6 +54,32 @@ function Card({ link, source, heading, description, badge1, badge2, badge3 }) {
                                                 : "yellow"
                                 }
                             >{badge1}</Badge>
+                            {badge2 ?
+                                <Badge fontSize="1.0em" p={2} rounded='md'
+                                    colorScheme={
+                                        badge2 === "PYTHON"
+                                            ? "green"
+                                            : badge2 === "PANDAS"
+                                                ? "blue"
+                                                : badge2 === "JSX"
+                                                    ? "red"
+                                                    : "yellow"
+                                    }
+                                >{badge2}</Badge>
+                                : null}
+                            {badge3 ?
+                                <Badge fontSize="1.0em" p={2} rounded='md'
+                                    colorScheme={
+                                        badge3 === "PYTHON"
+                                            ? "green"
+                                            : badge3 === "PANDAS"
+                                                ? "blue"
+                                                : badge3 === "JSX"
+                                                    ? "red"
+                                                    : "yellow"
+                                    }
+                                >{badge3}</Badge>
+                                : null}
                         </Stack>
                     </Stack>
                 </Flex>
