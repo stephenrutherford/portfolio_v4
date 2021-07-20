@@ -6,7 +6,7 @@ function Promo({ source, githubSrc, demoSrc }) {
     return (
         <Flex flexDirection='column' mt={10}>
             <Flex>
-                <video width="980" autoPlay="autoplay" muted preload='true' loop>
+                <video width="980" autoPlay="autoplay" muted preload='true' loop playsInline='true'>
                     <source src={source} type="video/mp4" />
                 </video>
             </Flex>

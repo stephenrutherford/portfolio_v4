@@ -26,7 +26,7 @@ function Card({ link, source, heading, description, badge1, badge2, badge3 }) {
             <Stack w='100%' direction={variant} spacing={6}>
 
                 <Flex rounded='2xl' overflow='hidden' maxW='500px' w='100%' boxShadow="lg">
-                    <video width="500" autoPlay='autoplay' muted preload='true' loop>
+                    <video width="500" autoPlay='autoplay' muted preload='true' loop playsInline='true'>
                         <source src={source} type="video/mp4" />
                     </video>
                 </Flex>
