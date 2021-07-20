@@ -50,6 +50,7 @@ function Hero() {
                             width={500}
                             height={500}
                             priority
+                            alt='Hero Illustration'
                         />
                     </Flex>
                 </Stack >
