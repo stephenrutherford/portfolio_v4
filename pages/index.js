@@ -9,7 +9,7 @@ import { projects } from '../lib/projectData'
 
 export default function Home() {
   return (
-    <Flex direction='column'>
+    <Flex direction='column' w='100%' alignItems='center'>
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
