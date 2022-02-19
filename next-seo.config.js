@@ -8,7 +8,7 @@ export default {
         site_name: 'Stephen Rutherford',
         images: [
             {
-                url: '/images/og_image.png',
+                url: '/og_image.png',
                 width: 1920,
                 height: 1080,
                 alt: 'Og Image Alt',
